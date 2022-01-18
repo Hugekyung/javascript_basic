@@ -6,7 +6,7 @@ alert("hello")
 // prompt: 사용자가 값을 입력할 수 있는 모달창
 // title: 사용자에게 보여줄 문자열
 // default: 입력 필드의 초기값, []는 필수가 아닌 선택값이라는 것을 의미한다
-result = prompt(title, [default]);
+result = prompt(title, []);
 
 // 사용자가 원하는 값을 입력한 뒤 확인을 누를 수 있다, 취소 시 null 반환
 let age = prompt('나이를 입력해주세요.', 100);
