@@ -20,7 +20,7 @@ let str2 = 'single quotes are ok too';
 let phrase = `can embed another ${str}`;
 
 let name = "haechan";
-console.log(`Hello, ${name}`);
+console.log(`Hello, ${this}`);
 console.log(`the result is ${1 + 2}`);
 
 // 4.Boolean
