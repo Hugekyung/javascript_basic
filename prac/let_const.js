@@ -6,7 +6,7 @@
 */
 
 let foo = 'foo1';
-const bar = 'bar1';
+const bar = 'bar1'; // 변수 재할당이 필요 없는 경우에 사용
 console.log(foo);
 
 if (true) {
