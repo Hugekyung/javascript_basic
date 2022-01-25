@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="inline" onclick="alert(event.target.value);"> <!-- event.target.value 자기 자신의 value-->
+    <input type="button" id="ae" value="addEventListener"> <!--addEventListener: 이벤트 핸들러-->
+    <input type="button" id="ae2" value="addEventListener">
+    <script>
+        function cilckHandler(evt) {
+            alert(evt.target.value);
+        }
+        function cilckHandler2(evt) {
+            alert(evt.target.value);
+        }
+        document.querySelector('#ae').addEventListener('click', cilckHandler)
+        document.querySelector('#ae').addEventListener('click', cilckHandler2)
+        document.querySelector('#ae2').addEventListener('click', cilckHandler2)
+    </script>
+</body>
+</html>
