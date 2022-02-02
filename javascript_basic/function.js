@@ -16,10 +16,37 @@ const func = function() {
     console.log('hello');
 };
 
-// 3. 익명함수
-function() {
-    console.log('hello');
+// 3. 콜백함수 & 익명함수
+// 콜백함수: 특정 이벤트가 발생하면 호출되는 함수
+function ask(question, yes, no) {
+    if (confirm(question)) yes()
+    else no();
 }
+
+function showOk() {
+    alert('agree!');
+}
+
+function showCancel() {
+    alert('Cancel!');
+}
+
+ask("Are you agree?", showOk, showCancel); // ask 함수의 인자인 showOk & showCancel 함수는 콜백함수
+
+
+// 위와 같은 코드이지만 익명함수를 사용하면 더 간결하게 코드를 작성할 수 있다.
+// 익명함수는 주로 한번 사용되고 필요없는 경우에 사용
+function ast(question, yes, no) {
+    if (confirm(question)) yes()
+    else no();
+}
+
+ask(
+    "Are you agree?",
+    function() { alert("agree!"); },
+    function() { alert("Cancel!"); }
+)
+
 
 // 4. 화살표 함수 방식
 // 한줄 방식
