@@ -1,0 +1,97 @@
+<!-- python 온라인 실행 환경 만들기 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      textarea {
+        width: 500px;
+        height: 500px;
+      }
+      #code {
+        display: flex;
+      }
+    </style>
+    <script>
+        async function login(id, pw) {
+            const res = await fetch('https://elice-python-code-run.herokuapp.com/login', {
+                method: 'post',
+                body: JSON.stringify({ id: id, pw: pw }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            const res_json = await res.json();
+            // console.log(res_json);
+            if (res_json.status === "succ") return true;
+            return false;
+        }
+
+        async function codeRun(code) {
+            const res = await fetch('https://elice-python-code-run.herokuapp.com/code_run', {
+                method: 'post',
+                body: JSON.stringify({ lang: "python", code: code }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            const res_json = await res.json();
+            if (res_json.status === "succ") { // elice , 1234
+                return res_json.result.join('\n');   
+            } else if (res_json.status === 'fail') {
+                if (res_json.result === undefined) {
+                    return Error
+                }
+                return res_json.result;
+            }
+        }
+
+        window.onload = () => {
+            const loginForm = document.getElementById("loginForm");
+            loginForm.onsubmit = (e) => {
+                e.preventDefault();
+                login(e.target.id.value, e.target.pw.value).then(result => {
+                    // console.log("로그인 여부", result);
+                    if (result === true) {
+                        alert("로그인 성공!")
+                        const codeDOM = document.getElementsByName('code')[0]
+                        codeDOM.disabled = false;
+                        codeDOM.addEventListener('keydown', (e) => {
+                            if(e.key === 'Tab') {
+                                e.preventDefault();
+                                codeDOM.value += '    ';
+                            }
+                        })
+                    } else {
+                        alert("로그인 실패!")
+                    }
+                })
+            }
+
+            const codeForm = document.getElementById('codeForm');
+            codeForm.onsubmit = (e) => {
+                e.preventDefault();
+                codeRun(e.target.code.value).then(result => {
+                    // console.log(result);
+                    e.target.result.value = result;
+                })
+
+            }
+        }
+    </script>
+  </head>
+  <body>
+    <h1>Online Python</h1>
+
+    <form id="loginForm">
+        <input type="text" name="id">
+        <input type="password" name="pw">
+        <input type="submit" value="Login">
+    </form>
+
+    <form id="codeForm">
+        <textarea name="code" disabled></textarea>
+        <input type="submit" value="run">
+        <textarea name="result" disabled></textarea>
+    </form>
+  </body>
+</html>
