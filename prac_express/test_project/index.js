@@ -188,7 +188,7 @@ app.get("/", (req, res) => {
 
 app.get("/logout", (req, res) => {
     req.logout()
-    console.log(req.sessiont)
+    console.log(req.session)
     req.redirect("/")
 })
 
